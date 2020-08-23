@@ -17,6 +17,9 @@ class App extends React.Component {
     //our state
     this.state = { latitude: null };
     this.state = { longitude: null };
+
+    //error messgae
+    this.state = { errorMsg: null };
   }
 
   //React says we have to define a render method
@@ -28,7 +31,11 @@ class App extends React.Component {
           longitude: position.coords.longitude,
         });
       },
-      (err) => console.log(err)
+      (err) => {
+        this.setState({
+          errorMsg: err.message,
+        });
+      }
     );
 
     return (
@@ -36,6 +43,7 @@ class App extends React.Component {
         <SeasonDisplay
           latitude={this.state.latitude}
           longitude={this.state.longitude}
+          errorMsg={this.state.errorMsg}
         />
       </div>
     );
