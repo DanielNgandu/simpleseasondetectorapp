@@ -1,7 +1,28 @@
 //import React
 import React from "react";
 
+//get season
+const getSeason = (latitude, longitude, month) => {
+  //check ranges of months
+  if (month > 2 && month < 9) {
+    // eslint-disable-next-line no-unused-expressions
+    return latitude > 0
+      ? "Summer in the northen hemisphere."
+      : "Winter in the southern hemisphere.";
+  } else {
+    return latitude > 0
+      ? "Winter in the southern hemisphere."
+      : "Summer in the northen hemisphere.";
+  }
+};
+
 const SeasonDisplay = (props) => {
+  const season = getSeason(
+    props.latitude,
+    props.longitude,
+    new Date().getMonth()
+  );
+
   if (props.errorMsg != null) {
     return (
       <div className="ui negative message">
@@ -22,7 +43,12 @@ const SeasonDisplay = (props) => {
         <br />
         <div className="ui horizontal label">Longitude: </div>
         <span>{props.longitude}</span>
+        <br />
+        <div className="ui horizontal label">Season: </div>
+        <span>{season}</span>
       </div>
+
+      //
     );
 };
 

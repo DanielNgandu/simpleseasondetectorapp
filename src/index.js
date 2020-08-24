@@ -1,5 +1,5 @@
 //import React
-import React from "react";
+import React, { Component } from "react";
 
 //import React-DOM
 import ReactDOM from "react-dom";
@@ -10,20 +10,19 @@ import SeasonDisplay from "./SeasonDisplay";
 //class based component
 class App extends React.Component {
   //called before instance of component is created.
-  //Also init of State
-  constructor(props) {
-    super(props);
+  //our state
+  state = { latitude: null };
+  state = { longitude: null };
 
-    //our state
-    this.state = { latitude: null };
-    this.state = { longitude: null };
+  //month
 
-    //error messgae
-    this.state = { errorMsg: null };
-  }
+  //error messgae
+  state = { errorMsg: null };
 
-  //React says we have to define a render method
-  render() {
+  //ReactJs Life cycle methods
+  //1.
+  componentDidMount() {
+    console.log("Hey!Components rendered well!");
     window.navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({
@@ -37,7 +36,14 @@ class App extends React.Component {
         });
       }
     );
+  }
 
+  //.2
+  componentDidUpdate() {
+    console.log("Components did update!");
+  }
+  //React says we have to define a render method
+  render() {
     return (
       <div className="ui raised very padded text container segment">
         <SeasonDisplay
