@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 
 //import custom components
 import SeasonDisplay from "./SeasonDisplay";
+import PageLoader from "./PageLoader";
 
 //class based component
 class App extends React.Component {
@@ -44,15 +45,19 @@ class App extends React.Component {
   }
   //React says we have to define a render method
   render() {
-    return (
-      <div className="ui raised very padded text container segment">
-        <SeasonDisplay
-          latitude={this.state.latitude}
-          longitude={this.state.longitude}
-          errorMsg={this.state.errorMsg}
-        />
-      </div>
-    );
+    //if state properties are null, then show loading,else show page
+    if (this.state.errorMsg == null && this.state.latitude == null) {
+      return <PageLoader />;
+    } else
+      return (
+        <div className="ui raised very padded text container segment">
+          <SeasonDisplay
+            latitude={this.state.latitude}
+            longitude={this.state.longitude}
+            errorMsg={this.state.errorMsg}
+          />
+        </div>
+      );
   }
 }
 

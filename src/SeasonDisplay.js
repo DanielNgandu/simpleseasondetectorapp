@@ -1,27 +1,30 @@
 //import React
 import React from "react";
 
+//config
+const seasonConfig = {
+  summer: {
+    text: "Let's hit the beach!",
+    iconName: "sun",
+  },
+  winter: {
+    text: "Burr it is cold!",
+    iconName: "snowflake",
+  },
+};
+
 //get season
-const getSeason = (latitude, longitude, month) => {
-  //check ranges of months
+const getSeason = (lat, month) => {
   if (month > 2 && month < 9) {
-    // eslint-disable-next-line no-unused-expressions
-    return latitude > 0
-      ? "Summer in the northen hemisphere."
-      : "Winter in the southern hemisphere.";
+    return lat > 0 ? "summer" : "winter";
   } else {
-    return latitude > 0
-      ? "Winter in the southern hemisphere."
-      : "Summer in the northen hemisphere.";
+    return lat > 0 ? "winter" : "summer";
   }
 };
 
 const SeasonDisplay = (props) => {
-  const season = getSeason(
-    props.latitude,
-    props.longitude,
-    new Date().getMonth()
-  );
+  const season = getSeason(props.latitude, new Date().getMonth());
+  const { text, iconName } = seasonConfig[season];
 
   if (props.errorMsg != null) {
     return (
@@ -45,7 +48,11 @@ const SeasonDisplay = (props) => {
         <span>{props.longitude}</span>
         <br />
         <div className="ui horizontal label">Season: </div>
-        <span>{season}</span>
+        <span>
+          {" "}
+          <i className={`icon-right large ${iconName} icon`} />
+          {season}
+        </span>
       </div>
 
       //
