@@ -14,6 +14,7 @@ class App extends React.Component {
   //our state
   state = { latitude: null };
   state = { longitude: null };
+  state = { latlong: null };
 
   //month
 
